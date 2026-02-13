@@ -1,14 +1,22 @@
 import React from "react";
 import { useState, useRef } from "react";
-import { GlobalStyle } from "./styles/global";
-import { Container, Img, Div, H1, Input, Label, Field, Button, User } from "./styles/styles"
-import burguer from "./assets/burger 1.png"
-import trash from "./assets/18297 4.png"
+import { GlobalStyle } from "../../styles/global";
+import { Container, Img, Div, H1, Input, Label, Field, Button,} from "./styles"
+import burguer from "../../assets/burger 1.png"
 import axios from 'axios'
+import {Link} from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
 
 //JSX
-const App = () => {
+const Home = () => {
   // const orders = []
+  const navigate = useNavigate();
+
+  function goToOrders(){
+    navigate('/orders')
+  }
+
+
 
   const inputOrder = useRef()
   const inputName = useRef()
@@ -29,10 +37,6 @@ const App = () => {
 
   
 
-  function deleteOrder(userId) {
-      const newOrders = orders.filter(order => order.id !== userId)
-      setOrders(newOrders)
-  }
 
 
   return (
@@ -59,29 +63,15 @@ const App = () => {
           </Field>
         </Div>
         <Div>
-          <Button onClick={addNewOrder} className="pedido">
+          <Button onClick={goToOrders} className="pedido">
             Novo Pedido
           </Button>
+          
         </Div>
-        <Div>
-          <ul>
-            {orders.map((order) => (
-
-              <User key={order.id}>
-                <div className="info">
-                  <p className="order">{order.order}</p>
-                  <p className="name">{order.name}</p>
-                </div>
-                <button onClick={() => deleteOrder(order.id)}> <img src={trash} alt="Excluir pedido" /> </button>
-              </User>
-
-            ))
-            }
-          </ul>
-        </Div>
+       
       </Container>
     </>
   )
 }
 
-export default App
+export default Home
